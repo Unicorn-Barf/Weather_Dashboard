@@ -16,19 +16,39 @@ function geoCode(city, state) {
             // Get Lon/Lat and call weather search function
             let lon = data[0].lon;
             let lat = data[0].lat;
-            weatherSearch(lon, lat);
+            weatherSearch(lon, lat, city);
         })
 };
 
 
 // Weather Search Function
-function weatherSearch(lon, lat) {
-
-
+function weatherSearch(lon, lat, city) {
     // define the URL
-    let requestURL = `https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&units=imperial&q=${search}&appid=4bcac4085f133666bc3803dc7ed2e35c`
+    let requestURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=4bcac4085f133666bc3803dc7ed2e35c`
 
-// API request for weather
+    // API request for weather
+    fetch(requestURL)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        // call function to display data
+        displayWeather(data, city);
+        console.log(data);
+    })
+}
+
+// display weather function to dynamically create html elements
+function displayWeather(data, city) {
+    // display today's weather
+    let date = moment.unix(data.current.dt).format("M/D/YYYY");
+    let todayDiv = $("<div>");
+    let cityDate = $("<h2>").text(`${city} ${date}`);
+    let temp = $("<p>").text(`Temp: ${data.current.temp}F`);
+    let wind = $("<p>").text(`Wind: ${data.current.wind_speed} MPH`);
+    let uvIndex = $("<p>").text(`UV Index: ${data.current.uvi}`);
+    todayDiv.append(cityDate, temp, wind, uvIndex);
+    $("#weather-div").append(todayDiv);
 }
 
 
