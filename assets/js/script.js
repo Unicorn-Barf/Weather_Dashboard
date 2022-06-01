@@ -1,6 +1,6 @@
-var cities = JSON.parse(localStorage.getItem("cities"));
 
-
+// load previous search buttons upon loading
+searchButtons();
 
 // Geocoding function to get lon & lat
 function geoCode(city, state) {
@@ -40,7 +40,9 @@ function weatherSearch(lon, lat, city) {
 
 // display weather function to dynamically create html elements
 function displayWeather(data, city) {
-    // show weather div
+    // show weather div and clear old html
+    $("#today-weather").empty();
+    $("#5day-forecast").empty();
     $("#weather-div").show();
     // display today's weather
     let date = moment.unix(data.current.dt).format("M/D/YYYY");
@@ -75,19 +77,56 @@ $("#search-btn").on("click", function(event) {
     event.preventDefault();
     let city = $("#city-search").val().trim();
     let state = $("#state-select").val();
-    console.log(city, state);
+    // call function to store search data into local storage
+    searchStore(city, state);
     // set input fields back to empty string
     $("#city-search").val('');
-    // add city search input to local storage
-    if (cities === null) {
-        cities = [];
-    }
-    cities[cities.length] = {
-        city: city,
-        state: state
-    }
-    console.log(cities);
-    localStorage.setItem("cities", JSON.stringify(cities));
     // call my weather search function
     geoCode(city, state)
 });
+
+// function to handle local storage of cities
+function searchStore(city, state) {
+    // load local storage array of objects
+    let citySearch = JSON.parse(localStorage.getItem("citySearch"));
+    // if empty then initialize an array
+    if (citySearch === null) {
+        console.log("I'm null");
+        citySearch = [{city: city, state: state}];
+    }
+    else {
+        // check if search already exists return if it does exist
+        for (i = 0; i < citySearch.length; i++) {
+            if (city === citySearch[i].city && state === citySearch[i].state) {
+                console.log("I'm returning");
+                return;
+            }
+            console.log("I'm looping");
+        }
+        console.log(typeof citySearch);
+        console.log("i'm hit");
+        console.log({city: city, state: state});
+        // update array if it doesn't exist
+        citySearch.push({city: city, state: state});
+    }
+    // store new array into local storage
+    localStorage.setItem("citySearch", JSON.stringify(citySearch));
+    // call function to dynamical create buttons for past searches
+    searchButtons();
+ };
+
+// Function to dynamically populate previous search buttons
+function searchButtons() {
+    // load search array from local storage
+    let searchArr = JSON.parse(localStorage.getItem("citySearch"));
+    // clear old buttons
+    $("#history-div").empty();
+    // create and append buttons for each previous search
+    for (i=0; i<searchArr.length; i++) {
+        let btnEl = $("<btn>")
+            .addClass("btn btn-secondary w-100 my-2")
+            .text(`${searchArr[i].city}, ${searchArr[i].state}`)
+            .data("search", {city: searchArr[i].city, state: searchArr[i].state});
+        $("#history-div").append(btnEl);
+    }
+}
