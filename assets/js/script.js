@@ -40,15 +40,33 @@ function weatherSearch(lon, lat, city) {
 
 // display weather function to dynamically create html elements
 function displayWeather(data, city) {
+    // show weather div
+    $("#weather-div").show();
     // display today's weather
     let date = moment.unix(data.current.dt).format("M/D/YYYY");
-    let todayDiv = $("<div>");
+    let todayDiv = $("#today-weather");
     let cityDate = $("<h2>").text(`${city} ${date}`);
-    let temp = $("<p>").text(`Temp: ${data.current.temp}F`);
+    let temp = $("<p>").text(`Temp: ${data.current.temp} F`);
     let wind = $("<p>").text(`Wind: ${data.current.wind_speed} MPH`);
     let uvIndex = $("<p>").text(`UV Index: ${data.current.uvi}`);
     todayDiv.append(cityDate, temp, wind, uvIndex);
-    $("#weather-div").append(todayDiv);
+
+    // display 5 day forecast
+    let foreDiv = $("#5day-forecast");
+    for (i=1; i<6; i++) {
+        // div for the card
+        let foreCard = $("<div>").addClass("fore-card");
+        let Date = moment.unix(data.daily[i].dt).format("M/D/YYYY");
+        let foreDate = $("<h3>").text(`${Date}`);
+        let iconLink = `http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png`;
+        let foreImg = $("<img>").attr("src", iconLink);
+        let foreTempH = $("<p>").text(`High Temp: ${data.daily[i].temp.max} F`);
+        let foreTempL = $("<p>").text(`High Temp: ${data.daily[i].temp.min} F`);
+        let foreWind = $("<p>").text(`Wind: ${data.daily[i].wind_speed} MPH`);
+        let foreUVI = $("<p>").text(`UV Index: ${data.daily[i].uvi}`);
+        foreCard.append(foreDate, foreImg, foreTempH, foreTempL, foreWind, foreUVI);
+        foreDiv.append(foreCard);
+    }
 }
 
 

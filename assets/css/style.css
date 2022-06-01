@@ -1,0 +1,32 @@
+
+
+/* format the site header */
+h1 {
+    padding: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: white;
+    background: linear-gradient(.25turn, rgb(59, 101, 193), rgb(0, 0, 92));
+}
+
+/* add dividing link on search aside */
+#divider {
+    border-bottom: 4px solid rgb(174, 174, 174);
+}
+
+/* initially hide weather section */
+#weather-div {
+    display: none;
+}
+
+/* format todays weather div */
+#today-weather {
+    border: 2px solid black;
+}
+
+/* formate forecast card */
+.fore-card {
+    padding: 10px;
+    color: white;
+    background-color: rgb(41, 53, 92);
+}
