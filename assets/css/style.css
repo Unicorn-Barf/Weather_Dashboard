@@ -22,11 +22,40 @@ h1 {
 /* format todays weather div */
 #today-weather {
     border: 2px solid black;
+    border-radius: 10px;
 }
+
+/* Change uv index span depending on severity */
+span {
+    padding: 5px;
+    border-radius: 4px;
+}
+
+span[data-uvi='low'] {
+    color: white;
+    background-color: green;
+}
+span[data-uvi='moderate'] {
+    color: white;
+    background-color: yellow;
+}span[data-uvi='high'] {
+    color: white;
+    background-color: orange;
+}span[data-uvi='very-high'] {
+    color: white;
+    background-color: red;
+}span[data-uvi='extreme'] {
+    color: white;
+    background-color: magenta;
+}
+
 
 /* formate forecast card */
 .fore-card {
-    padding: 10px;
+    padding: 20px;
+    width: 100%;
+    margin: 10px;
     color: white;
     background-color: rgb(41, 53, 92);
+    border-radius: 10px;
 }

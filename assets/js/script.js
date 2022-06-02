@@ -32,6 +32,7 @@ function weatherSearch(lon, lat, city) {
     })
     .then(function(data) {
         // call function to display data
+        console.log(data);
         displayWeather(data, city);
     })
 }
@@ -48,8 +49,27 @@ function displayWeather(data, city) {
     let cityDate = $("<h2>").text(`${city} ${date}`);
     let temp = $("<p>").text(`Temp: ${data.current.temp} F`);
     let wind = $("<p>").text(`Wind: ${data.current.wind_speed} MPH`);
-    let uvIndex = $("<p>").text(`UV Index: ${data.current.uvi}`);
-    todayDiv.append(cityDate, temp, wind, uvIndex);
+    let humidity = $("<p>").text(`Humidity: ${data.current.humidity}%`);
+    // store uv index value as a data attribute to put corresponding background color
+    let UVI = data.current.uvi;
+    let level
+        if (UVI < 3) {
+            level = "low";
+        }
+        else if (UVI < 6) {
+            level = "moderate";
+        }
+        else if (UVI < 8) {
+            level = "high";
+        }
+        else if (UVI < 11) {
+            level = "very-high";
+        }
+        else {
+            level = "extreme";
+        }
+    let uvIndex = $(`<p>UV Index: <span data-uvi=${level}>${UVI}</span></p>`);
+    todayDiv.append(cityDate, temp, wind, humidity, uvIndex);
 
     // display 5 day forecast
     let foreDiv = $("#5day-forecast");
@@ -63,8 +83,8 @@ function displayWeather(data, city) {
         let foreTempH = $("<p>").text(`High Temp: ${data.daily[i].temp.max} F`);
         let foreTempL = $("<p>").text(`High Temp: ${data.daily[i].temp.min} F`);
         let foreWind = $("<p>").text(`Wind: ${data.daily[i].wind_speed} MPH`);
-        let foreUVI = $("<p>").text(`UV Index: ${data.daily[i].uvi}`);
-        foreCard.append(foreDate, foreImg, foreTempH, foreTempL, foreWind, foreUVI);
+        let foreHumidity = $("<p>").text(`Humidity: ${data.daily[i].humidity}%`);
+        foreCard.append(foreDate, foreImg, foreTempH, foreTempL, foreWind, foreHumidity);
         foreDiv.append(foreCard);
     }
 }
