@@ -2,7 +2,7 @@
 // load previous search buttons upon loading
 searchButtons();
 
-// Geocoding function to get lon & lat
+// Geocoding function to get lon & lat from user input
 function geoCode(city, state) {
     // define fetch request URL
     let requestURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&appid=4bcac4085f133666bc3803dc7ed2e35c`
@@ -12,7 +12,6 @@ function geoCode(city, state) {
             return response.json();
         })
         .then(function(data) {
-            console.log(data);
             // Get Lon/Lat and call weather search function
             let lon = data[0].lon;
             let lat = data[0].lat;
@@ -21,7 +20,7 @@ function geoCode(city, state) {
 };
 
 
-// Weather Search Function
+// Weather Search Function API to one call weather
 function weatherSearch(lon, lat, city) {
     // define the URL
     let requestURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=4bcac4085f133666bc3803dc7ed2e35c`
@@ -34,7 +33,6 @@ function weatherSearch(lon, lat, city) {
     .then(function(data) {
         // call function to display data
         displayWeather(data, city);
-        console.log(data);
     })
 }
 
@@ -91,23 +89,18 @@ function searchStore(city, state) {
     let citySearch = JSON.parse(localStorage.getItem("citySearch"));
     // if empty then initialize an array
     if (citySearch === null) {
-        console.log("I'm null");
         citySearch = [{city: city, state: state}];
     }
     else {
         // check if search already exists return if it does exist
         for (i = 0; i < citySearch.length; i++) {
             if (city === citySearch[i].city && state === citySearch[i].state) {
-                console.log("I'm returning");
                 return;
             }
-            console.log("I'm looping");
         }
-        console.log(typeof citySearch);
-        console.log("i'm hit");
-        console.log({city: city, state: state});
+
         // update array if it doesn't exist
-        citySearch.push({city: city, state: state});
+        citySearch.splice(0, 0, {city: city, state: state});
     }
     // store new array into local storage
     localStorage.setItem("citySearch", JSON.stringify(citySearch));
@@ -119,6 +112,10 @@ function searchStore(city, state) {
 function searchButtons() {
     // load search array from local storage
     let searchArr = JSON.parse(localStorage.getItem("citySearch"));
+    // return if no data is store locally
+    if (searchArr === null) {
+        return;
+    }
     // clear old buttons
     $("#history-div").empty();
     // create and append buttons for each previous search
@@ -130,3 +127,9 @@ function searchButtons() {
         $("#history-div").append(btnEl);
     }
 }
+
+// event listener on history div for search history buttons
+$("#history-div").on("click", ".btn", function(event) {
+    let btnEl = event.target;
+    geoCode($(btnEl).data("search").city, $(btnEl).data("search").state);
+})
