@@ -47,7 +47,7 @@ function displayWeather(data, city) {
     let date = moment.unix(data.current.dt).format("M/D/YYYY");
     let todayDiv = $("#today-weather");
     let cityDate = $("<h2>").text(`${city} ${date}`);
-    let temp = $("<p>").text(`Temp: ${data.current.temp} F`);
+    let temp = $("<p>").text(`Temp: ${data.current.temp} \xB0F`);
     let wind = $("<p>").text(`Wind: ${data.current.wind_speed} MPH`);
     let humidity = $("<p>").text(`Humidity: ${data.current.humidity}%`);
     // store uv index value as a data attribute to put corresponding background color
@@ -80,8 +80,8 @@ function displayWeather(data, city) {
         let foreDate = $("<h3>").text(`${Date}`);
         let iconLink = `http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png`;
         let foreImg = $("<img>").attr("src", iconLink);
-        let foreTempH = $("<p>").text(`High Temp: ${data.daily[i].temp.max} F`);
-        let foreTempL = $("<p>").text(`High Temp: ${data.daily[i].temp.min} F`);
+        let foreTempH = $("<p>").text(`High: ${data.daily[i].temp.max} \xB0F`);
+        let foreTempL = $("<p>").text(`Low: ${data.daily[i].temp.min} \xB0F`);
         let foreWind = $("<p>").text(`Wind: ${data.daily[i].wind_speed} MPH`);
         let foreHumidity = $("<p>").text(`Humidity: ${data.daily[i].humidity}%`);
         foreCard.append(foreDate, foreImg, foreTempH, foreTempL, foreWind, foreHumidity);
@@ -93,7 +93,12 @@ function displayWeather(data, city) {
 // search button event
 $("#search-btn").on("click", function(event) {
     event.preventDefault();
-    let city = $("#city-search").val().trim();
+    // Format user input to capitalize city names
+    let city = $("#city-search").val().trim().split(" ");
+    for (i=0; i<city.length; i++) {
+        city[i] = city[i][0].toUpperCase() + city[i].substr(1);
+    };
+    city = city.join(" ");
     let state = $("#state-select").val();
     // call function to store search data into local storage
     searchStore(city, state);
