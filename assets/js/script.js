@@ -44,9 +44,12 @@ function displayWeather(data, city) {
     $("#5day-forecast").empty();
     $("#weather-div").show();
     // display today's weather
+    // Get Date moment from data
     let date = moment.unix(data.current.dt).format("M/D/YYYY");
     let todayDiv = $("#today-weather");
-    let cityDate = $("<h2>").text(`${city} ${date}`);
+    let cityDate = $("<h2>").text(`${city} - ${date}`).css("display", "inline-block").addClass("mt-2");
+    let iconLinkCurrent = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
+    let currentImg = $("<img>").attr("src", iconLinkCurrent).css({"width": "auto", "height": "auto"});
     let temp = $("<p>").text(`Temp: ${data.current.temp} \xB0F`);
     let wind = $("<p>").text(`Wind: ${data.current.wind_speed} MPH`);
     let humidity = $("<p>").text(`Humidity: ${data.current.humidity}%`);
@@ -69,7 +72,7 @@ function displayWeather(data, city) {
             level = "extreme";
         }
     let uvIndex = $(`<p>UV Index: <span data-uvi=${level}>${UVI}</span></p>`);
-    todayDiv.append(cityDate, temp, wind, humidity, uvIndex);
+    todayDiv.append(cityDate, currentImg, temp, wind, humidity, uvIndex);
 
     // display 5 day forecast
     let foreDiv = $("#5day-forecast");
