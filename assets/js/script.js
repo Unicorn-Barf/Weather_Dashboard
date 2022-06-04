@@ -5,7 +5,7 @@ searchButtons();
 // Geocoding function to get lon & lat from user input
 function geoCode(city, state) {
     // define fetch request URL
-    let requestURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&appid=4bcac4085f133666bc3803dc7ed2e35c`
+    let requestURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&appid=4bcac4085f133666bc3803dc7ed2e35c`
     // fetch request to convert to lon lat
     fetch(requestURL)
         .then(function(response) {

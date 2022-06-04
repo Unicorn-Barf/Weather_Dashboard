@@ -61,8 +61,8 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 ​
 ### Links
 ​
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://github.com/Unicorn-Barf/Weather_Dashboard](https://github.com/Unicorn-Barf/Weather_Dashboard)
+- Live Site URL: [https://unicorn-barf.github.io/Weather_Dashboard/](https://unicorn-barf.github.io/Weather_Dashboard/)
 ​
 ## My process
 ​
@@ -145,24 +145,21 @@ An additional feature I was proud of utilized data atributes and CSS skills to c
 ​
 ### Continued development
 ​
-After taking on the challenges provided by this simple web app, I am inpsired to find innovataive ways to implement APIs.  
+After taking on the challenges provided by this simple web app, I am inpsired to find innovataive ways to implement APIs.  I realize that future project development will heavily utilize APIs for functionality.  Lastly, I am very excited to learn about setting up and using servers to not only improved user experience, but also to handle secure imformation.  Many of my previously built apps would improve with handling user data and login credentials.
 ​
 ### Useful resources
 ​
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-​
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- [Open Weather One Call API docs](https://openweathermap.org/api/one-call-3) - This is the documentation to use the Open Weather One Call API.
+- [EPA UV Index Guide](https://www.epa.gov/sites/default/files/documents/uviguide.pdf) - This is the EPA's guide to UV indexes.  I got my severity color codes from this guide.
+- [MDN's Data Atrribute Docs](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) - MDN's documentation on data attributes and how to utlize them in your CSS code.
+- [Special Symbols for HTML & JavaScript](http://www.javascripter.net/faq/mathsymbols.htm) - I used this as a reference to get the hexidecimal code for the degree symbol to use in my JS file.  It has many special characters in HexCode, Numeric, HTML, escape, and encodeURI formats.
+- [Blog Post: How to capitalize first letter of each word in a string](https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript/) - This helped me figure out how to take my user input for the city search input and make sure the city name was capitolized even for cities with multiple word names.
 ​
 ## Author
 ​
-- Website - [Add your name here](https://www.your-site.com)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-​
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
+- Website - [Nolan Spence](https://unicorn-barf.github.io/Portfolio_Website_HTML_CSS/)
+- LinkedIn - [https://www.linkedin.com/in/aerospence/](https://www.linkedin.com/in/aerospence/)
 ​
 ## Acknowledgments
 ​
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-​
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+Thank you to Nifer for pointing out my current weather had no conditions icon on it!!
