@@ -49,7 +49,7 @@ THEN I am again presented with current and future conditions for that city
 ​
 ### Screenshot
 ​
-![Website gif](./assets/images/functionality.gif)
+![Website gif](./assets/images/website.gif)
 ​
 ​
 ### Links
