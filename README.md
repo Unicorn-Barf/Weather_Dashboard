@@ -69,7 +69,7 @@ THEN I am again presented with current and future conditions for that city
 ​
 ### What I learned
 ​
-This project provided one of my first experiences utilizing APIs and the built in JavaScipt fetch API.  One of my first challenges was to read the Open Weather One Call API documentation to figure out how I can access the data that I needed.  Another difficult feature I needed to implement was a color coded background for the UV index data displayed on the current weather card.  I am proud of what I was able to accomplish and have a breakdown of these two challenging aspects of this web app below.
+This project provided one of my first experiences utilizing APIs and the built in JavaScipt fetch API.  One of my first challenges was to read the Open Weather One Call API documentation to figure out how I can access the data that I needed.  Another difficult feature I needed to implement was a color coded background for the UV index data displayed on the current weather card.  Lastly, I implemented a `.catch` on the promise chain so that if the user entered a nonexistent city name, an alert modal would pop up.  I am proud of what I was able to accomplish and have a breakdown of these three challenging aspects of this web app below.
 
 
 By reading the API documentation, I realized in order to use the free One Call weather API, it was neccessary to fetch weather by longitude and latititude.  I perused the documentation and found the same API provider also had a free geocoding service API that would convert the user input as city and state to longitude and latitude.  I implemented two fetch calls to get the appropriate data that I needed.  I am proud of the way I was able to incorporate user input into my fetch request URL parameters to effectively get the correct data.  Also, this taught me how to `console.log(data)` to observed the returned promise object and properly target the specific data I needed.  Below is an example of my fetch request code:
@@ -90,6 +90,10 @@ function geoCode(city, state) {
             let lat = data[0].lat;
             weatherSearch(lon, lat, city);
         })
+        // Catch error and trigger alert modal
+        .catch(function() {
+            alertModal();
+        });
 };
 
 
@@ -135,6 +139,7 @@ An additional feature I was proud of utilized data atributes and CSS skills to c
     let uvIndex = $(`<p>UV Index: <span data-uvi=${level}>${UVI}</span></p>`);
 ```
 
+I experimented with how I would use `.catch` for error statuses on my fetch request.  I decided I would implement a Bootstrap modal for an error case alerting the user that the input was not valid.  I am now aware to use all of Bootstrap's modal functionality, the Bootstrap script tag must be included.  The modal was easy to implement once I understood the documentation.
 ​
 ### Continued development
 ​
