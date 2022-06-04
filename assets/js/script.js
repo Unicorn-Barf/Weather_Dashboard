@@ -12,11 +12,18 @@ function geoCode(city, state) {
             return response.json();
         })
         .then(function(data) {
-            // Get Lon/Lat and call weather search function
-            let lon = data[0].lon;
-            let lat = data[0].lat;
-            weatherSearch(lon, lat, city);
+            if (data) {
+                // Get Lon/Lat and call weather search function
+                let lon = data[0].lon;
+                let lat = data[0].lat;
+                weatherSearch(lon, lat, city);
+                // call function to store search data into local storage
+                searchStore(city, state)
+            }
         })
+        .catch(function() {
+            alertModal();
+        });
 };
 
 
@@ -102,8 +109,6 @@ $("#search-btn").on("click", function(event) {
     };
     city = city.join(" ");
     let state = $("#state-select").val();
-    // call function to store search data into local storage
-    searchStore(city, state);
     // set input fields back to empty string
     $("#city-search").val('');
     // call my weather search function
@@ -160,3 +165,11 @@ $("#history-div").on("click", ".btn", function(event) {
     let btnEl = event.target;
     geoCode($(btnEl).data("search").city, $(btnEl).data("search").state);
 })
+
+// Bootstrap modal Alert Function
+function alertModal() {
+    // Display error message to the user in a modal
+    $('#alert-modal-title').html("Error");
+    $('#alert-modal-body').html("Enter a real city!");
+    $('#alert-modal').modal('show');
+  }
