@@ -21,6 +21,7 @@ function geoCode(city, state) {
                 searchStore(city, state)
             }
         })
+        // Catch error and trigger alert modal
         .catch(function() {
             alertModal();
         });
@@ -54,7 +55,7 @@ function displayWeather(data, city) {
     let date = moment.unix(data.current.dt).format("M/D/YYYY");
     let todayDiv = $("#today-weather");
     let cityDate = $("<h2>").text(`${city} - ${date}`).css("display", "inline-block").addClass("mt-2");
-    let iconLinkCurrent = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
+    let iconLinkCurrent = `https://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
     let currentImg = $("<img>").attr("src", iconLinkCurrent).css({"width": "auto", "height": "auto"});
     let temp = $("<p>").text(`Temp: ${data.current.temp} \xB0F`);
     let wind = $("<p>").text(`Wind: ${data.current.wind_speed} MPH`);
@@ -87,7 +88,7 @@ function displayWeather(data, city) {
         let foreCard = $("<div>").addClass("fore-card");
         let Date = moment.unix(data.daily[i].dt).format("M/D/YYYY");
         let foreDate = $("<h3>").text(`${Date}`);
-        let iconLink = `http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png`;
+        let iconLink = `https://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png`;
         let foreImg = $("<img>").attr("src", iconLink);
         let foreTempH = $("<p>").text(`High: ${data.daily[i].temp.max} \xB0F`);
         let foreTempL = $("<p>").text(`Low: ${data.daily[i].temp.min} \xB0F`);
