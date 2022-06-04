@@ -32,7 +32,6 @@ function weatherSearch(lon, lat, city) {
     })
     .then(function(data) {
         // call function to display data
-        console.log(data);
         displayWeather(data, city);
     })
 }
